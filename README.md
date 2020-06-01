@@ -6,6 +6,21 @@
 
 
 
+#### 需要安装
+
+
+* iverilog
+
+```
+sudo apt-get install iverilog
+```
+
+* gtkwave
+
+```
+sudo apt-get install gtkwave
+```
+
 #### 使用方法
 
 * 运行前清理文件
