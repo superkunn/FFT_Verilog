@@ -1,10 +1,10 @@
 /*
 蝶行操作
 
-(xr + xi) ----------------  --    ar + ai = (xr + xi) + [(yr + yi) * (wr + wi)] = (xr + yr * wr - yi * wi) + (xi + yr * wi + yi * wr)
+(xr + xi) ----------------  --    ar + ai = (xr + xi) + [(yr + yi) * (wr + wi)]
                             \/             
                             /\              
-(yr + yi) ---*(wr + wi)---  --    br + bi = (xr + xi) - [(yr + yi) * (wr + wi)] = (xr - yr * wr + yi * wi) + (xi - yr * wi - yi * wr) 
+(yr + yi) ---*(wr + wi)---  --    br + bi = (xr + xi) - [(yr + yi) * (wr + wi)] 
                             -1               
 */
 
@@ -15,23 +15,13 @@ input signed [32 - 1:0] wr, wi;
 
 output signed [32 - 1:0] ar, ai, br, bi;
 
-wire signed [2 * 32 - 1:0] yrwr, yiwi, yrwi, yiwr;
+wire signed [32 - 1:0] zr, zi;
 
-wire signed [2 * 32 - 1:0] oar, oai, obr, obi;
+mul_complex yw(yr, yi, wr, wi, zr, zi);
 
-assign yrwr = yr * wr;
-assign yiwi = yi * wi;
-assign yrwi = yr * wi;
-assign yiwr = yi * wr;
-
-assign oar = (xr << 16) + yrwr - yiwi;
-assign oai = (xi << 16) + yrwi + yiwr;
-assign obr = (xr << 16) - yrwr + yiwi;
-assign obi = (xi << 16) - yrwi - yiwr;
-
-assign ar = oar[32 + 15:16];
-assign ai = oai[32 + 15:16];
-assign br = obr[32 + 15:16];
-assign bi = obi[32 + 15:16];
+assign ar = xr + zr;
+assign ai = xi + zi;
+assign br = xr - zr;
+assign bi = xi - zi;
 
 endmodule
