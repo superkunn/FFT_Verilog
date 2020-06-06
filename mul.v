@@ -24,6 +24,8 @@ module mul(
   
   wire    signed[32 - 1:0] wr0, wr1, wr2, wr3, wr4, wr5, wr6, wr7;
   wire    signed[32 - 1:0] wi0, wi1, wi2, wi3, wi4, wi5, wi6, wi7;
+
+  wire    signed[32 - 1:0] c0, c1, c2, c3, c4, c5, c6, c7;
   
   fft xfft(0, 0, 0, 0, x0 << 16, x1 << 16, x2 << 16, x3 << 16, 
            0, 0, 0, 0, 0, 0, 0, 0,
@@ -53,8 +55,13 @@ module mul(
              );
  
   
-  
-  mod10 zmod10(0, wr0 >> 16, wr1 >> 16, wr2 >> 16, wr3 >> 16, wr4 >> 16, wr5 >> 16, wr6 >> 16,
-               z0, z1, z2, z3, z4, z5, z6, z7);
+  mod10 zmod10_7(wr6 >> 16,  0, z7, c7);
+  mod10 zmod10_6(wr5 >> 16, c7, z6, c6);
+  mod10 zmod10_5(wr4 >> 16, c6, z5, c5);
+  mod10 zmod10_4(wr3 >> 16, c5, z4, c4);
+  mod10 zmod10_3(wr2 >> 16, c4, z3, c3);
+  mod10 zmod10_2(wr1 >> 16, c3, z2, c2);
+  mod10 zomd10_1(wr0 >> 16, c2, z1, c1);
+  mod10 zmod10_0(        0, c1, z0, c0);
   
 endmodule
