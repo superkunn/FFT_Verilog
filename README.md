@@ -21,6 +21,12 @@ sudo apt-get install iverilog
 sudo apt-get install gtkwave
 ```
 
+* make
+
+```
+sudo apt-get install make
+```
+
 #### 使用方法
 
 * 运行前清理文件
